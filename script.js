@@ -1,4 +1,4 @@
-import { personalizeGreeting, setGreetingLanguage } from './modules/greetings.js';
+import { personalizeGreeting, setGreetingLanguage } from './greetings.js';
 
 document.getElementById('personalizeButton').addEventListener('click', personalizeGreeting);
 document.getElementById('languageSelect').addEventListener('change', setGreetingLanguage);
