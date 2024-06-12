@@ -1,39 +1,28 @@
-import { personalizeGreeting, setGreetingLanguage } from './greetings.js';
+const greetings = {
+    pt: 'Olá, Mundo!',
+    en: 'Hello, World!',
+    es: 'Hola, Mundo!',
+    fr: 'Bonjour, Monde!',
+    it: 'Ciao, Mondo!'
+};
+
+let selectedLanguage = 'pt';
 
 document.getElementById('personalizeButton').addEventListener('click', personalizeGreeting);
-document.getElementById('languageSelect').addEventListener('change', setGreetingLanguage);
+document.getElementById('languageSelect').addEventListener('change', changeLanguage);
 document.getElementById('themeToggleButton').addEventListener('click', toggleTheme);
 
 window.addEventListener('load', () => {
-    const theme = localStorage.getItem('theme');
-    if (theme === 'dark') {
-        document.body.classList.add('dark-theme');
-        updateThemeButtonText('Modo Claro');
-    } else {
-        updateThemeButtonText('Modo Noturno');
-    }
-
-    const savedGreeting = localStorage.getItem('greeting');
-    if (savedGreeting) {
-        updateGreeting(savedGreeting);
-    }
+    loadPreferences();
 });
 
-function toggleTheme() {
-    const isDarkTheme = document.body.classList.toggle('dark-theme');
-    localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
-    updateThemeButtonText(isDarkTheme ? 'Modo Claro' : 'Modo Noturno');
+function changeLanguage() {
+    selectedLanguage = document.getElementById('languageSelect').value;
+    localStorage.setItem('language', selectedLanguage);
+    updateGreeting(greetings[selectedLanguage]);
 }
 
-function updateThemeButtonText(text) {
-    document.getElementById('themeToggleButton').innerText = text;
-}
-
-function updateGreeting(text) {
-    const greetingElement = document.getElementById('greeting');
-    greetingElement.innerText = text;
-}
-
-export function updateGreetingText(text) {
-    updateGreeting(text);
+function personalizeGreeting() {
+    const name = document.getElementById('nameInput').value.trim();
+    const greeting = name ? `${getGreetingPrefix(selectedLanguage)}, ${name}!` : greetings[selectedLanguage];
 }
