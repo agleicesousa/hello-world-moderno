@@ -1,4 +1,4 @@
-import { updateGreetingText } from '../script.js';
+import { updateGreetingText } from 'script.js';
 
 const greetings = {
     pt: 'Olá, Mundo!',
